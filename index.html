@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>index.html</title>
+<title>Hematocrit Case Study</title>
 <style>
 body {font-family: Arial, sans-serif; margin:0; background:#f4f8fb;}
 header {background:#2a6f97; color:white; padding:15px; text-align:center;}
@@ -65,11 +65,19 @@ Oxygen Saturation: 88%</p>
 <h2>Assessment Quiz</h2>
 
 <div id="q1" class="question active">
-<p>1. What is the patient's hematocrit (HCT) value?</p>
-<input type="radio" name="q1" value="A"> A<br>
-<input type="radio" name="q1" value="B"> B<br>
-<input type="radio" name="q1" value="C"> C<br>
-<input type="radio" name="q1" value="D"> D<br>
+<p>1. Record your lab observations from the simulation:</p>
+
+<label><strong>Hematocrit (HCT) Value:</strong></label><br>
+<input type="text" id="hct" placeholder="Enter value you measured"><br><br>
+
+<label><strong>Plasma Level Description:</strong></label><br>
+<input type="radio" name="plasma" value="Low"> Low<br>
+<input type="radio" name="plasma" value="Normal"> Normal<br>
+<input type="radio" name="plasma" value="High"> High<br><br>
+
+<label><strong>Buffy Coat Appearance:</strong></label><br>
+<input type="radio" name="buffy" value="Thin"> Thin<br>
+<input type="radio" name="buffy" value="Thick"> Thick<br>
 </div>
 
 <div id="q2" class="question">
