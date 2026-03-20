@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hematocrit Case Study</title>
+<style>
+body {font-family: Arial, sans-serif; margin:0; background:#f4f8fb;}
+header {background:#2a6f97; color:white; padding:15px; text-align:center;}
+.scene {display:none; padding:20px; max-width:1000px; margin:auto; background:white; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.active {display:block;}
+.nav {display:flex; justify-content:space-between; margin-top:20px;}
+button {padding:10px 20px; font-size:16px; border:none; border-radius:6px; cursor:pointer;}
+button:disabled {background:#ccc; cursor:not-allowed;}
+.next {background:#2a6f97; color:white;}
+.back {background:#adb5bd; color:white;}
+iframe {width:100%; max-width:1000px; min-width:800px; height:600px; min-height:600px; border:none;}
+.question {display:none;}
+.question.active {display:block;}
+</style>
+</head>
+<body>
+<header><h1>Hematocrit Case Study: Severe Polycythemia</h1></header>
+
+<div id="scene1" class="scene active">
+<h2>Patient Profile</h2>
+<p><strong>Name:</strong> Robert H.</p>
+<p><strong>Age:</strong> 62</p>
+<p><strong>Sex:</strong> Male</p>
+<p><strong>Chief Complaint:</strong> Increasing fatigue, headaches, and shortness of breath.</p>
+
+<p>Robert is a 62-year-old male with a long history of chronic lung disease related to smoking. He reports worsening fatigue over the past 6 months, frequent headaches, and occasional dizziness. He also notes his skin appears slightly reddish, especially on his face.</p>
+
+<p><strong>Medical History:</strong> Chronic obstructive pulmonary disease (COPD), 40-year smoking history.</p>
+
+<p><strong>Vital Signs:</strong><br>
+Heart Rate: 92 bpm<br>
+Respiratory Rate: 22 breaths/min<br>
+Blood Pressure: 148/90 mmHg<br>
+Oxygen Saturation: 88%</p>
+
+<p><strong>Physical Exam:</strong> Ruddy complexion, mild clubbing of fingers, labored breathing.</p>
+
+<p><strong>Clinical Note:</strong> Chronic low oxygen levels can stimulate the body to produce more red blood cells, increasing hematocrit.</p>
+
+<div class="nav">
+<button class="back" disabled>Back</button>
+<button class="next" onclick="nextScene(2)">Next</button>
+</div>
+</div>
+
+<div id="scene2" class="scene">
+<h2>Hematocrit Lab Simulation</h2>
+<p>Follow instructions in the simulation. Drag the hematocrit tube across the reader until the top of the plasma is level with the 100% line.</p>
+
+<iframe src="https://www.humanbiomedia.org/simulations/circulatory-system/hematocrit/hct-value-65-percent.html"></iframe>
+
+<div class="nav">
+<button class="back" onclick="nextScene(1)">Back</button>
+<button class="next" onclick="nextScene(3)">Next</button>
+</div>
+</div>
+
+<div id="scene3" class="scene">
+<h2>Assessment Quiz</h2>
+
+<div id="q1" class="question active">
+<p>1. Record your lab observations from the simulation:</p>
+
+<label><strong>Hematocrit (HCT) Value:</strong></label><br>
+<input type="text" id="hct" placeholder="Enter value you measured"><br><br>
+
+<label><strong>Plasma Level Description:</strong></label><br>
+<input type="radio" name="plasma" value="Low"> Low<br>
+<input type="radio" name="plasma" value="Normal"> Normal<br>
+<input type="radio" name="plasma" value="High"> High<br><br>
+
+<label><strong>Buffy Coat Appearance:</strong></label><br>
+<input type="radio" name="buffy" value="Thin"> Thin<br>
+<input type="radio" name="buffy" value="Thick"> Thick<br>
+</div>
+
+<div id="q2" class="question">
+<p>2. Based on age and sex, how would you classify this hematocrit level?</p>
+<input type="radio" name="q2" value="Low"> Low<br>
+<input type="radio" name="q2" value="Normal"> Normal<br>
+<input type="radio" name="q2" value="Borderline"> Borderline<br>
+<input type="radio" name="q2" value="High"> High<br>
+</div>
+
+<div id="q3" class="question">
+<p>3. What is the most likely cause of this condition?</p>
+<input type="radio" name="q3" value="A"> Chronic low oxygen levels<br>
+<input type="radio" name="q3" value="B"> Acute infection<br>
+<input type="radio" name="q3" value="C"> Blood loss<br>
+<input type="radio" name="q3" value="D"> Dehydration only<br>
+</div>
+
+<div id="q4" class="question">
+<p>4. Which symptom supports this diagnosis?</p>
+<input type="radio" name="q4" value="A"> Pale skin<br>
+<input type="radio" name="q4" value="B"> Ruddy complexion<br>
+<input type="radio" name="q4" value="C"> Low heart rate<br>
+<input type="radio" name="q4" value="D"> Weight loss only<br>
+</div>
+
+<div id="q5" class="question">
+<p>5. What is a common treatment approach?</p>
+<input type="radio" name="q5" value="A"> Oxygen therapy<br>
+<input type="radio" name="q5" value="B"> Iron supplements<br>
+<input type="radio" name="q5" value="C"> Antibiotics only<br>
+<input type="radio" name="q5" value="D"> Bed rest only<br>
+</div>
+
+<div class="nav">
+<button class="back" onclick="prevQuestion()">Back</button>
+<button class="next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="submitSection" style="display:none; margin-top:20px;">
+<button onclick="submitQuiz()">Submit Quiz</button>
+<p id="score"></p>
+<button onclick="location.reload()">Restart Case Study</button>
+</div>
+</div>
+
+<script>
+let currentScene = 1;
+let currentQuestion = 1;
+
+function nextScene(num){
+ document.getElementById('scene'+currentScene).classList.remove('active');
+ currentScene = num;
+ document.getElementById('scene'+currentScene).classList.add('active');
+}
+
+function nextQuestion(){
+ if(currentQuestion < 5){
+ document.getElementById('q'+currentQuestion).classList.remove('active');
+ currentQuestion++;
+ document.getElementById('q'+currentQuestion).classList.add('active');
+ }
+ if(currentQuestion === 5){
+ document.getElementById('submitSection').style.display='block';
+ }
+}
+
+function prevQuestion(){
+ if(currentQuestion > 1){
+ document.getElementById('q'+currentQuestion).classList.remove('active');
+ currentQuestion--;
+ document.getElementById('q'+currentQuestion).classList.add('active');
+ }
+}
+
+function submitQuiz(){
+ let answers = {q2:"High", q3:"A", q4:"B", q5:"A"};
+ let score = 0;
+ for(let q in answers){
+ let selected = document.querySelector('input[name="'+q+'"]:checked');
+ if(selected && selected.value === answers[q]) score++;
+ }
+ document.getElementById('score').innerText = "Score: " + score + "/4";
+}
+</script>
+
+</body>
+</html>
